@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortened</title>
+</head>
+<body>
+<h1>Shortened URL</h1>
+<p>Your shortened URL is: <a href="/{{.ShortURL}}" target="_blank">{{.ShortURL}}</a></p>
+<button id="copyButton" data-url="{{.ShortURL}}">Copy to clipboard</button>
+
+<script>
+
+    const copyButton = document.getElementById('copyButton');
+    const url = copyButton.getAttribute('data-url');
+
+    // Log the URL to ensure data-url is populated
+    console.log("Data URL to copy:", url);
+
+    copyButton.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText("http://localhost:8080" + url).then(() => {
+                alert('URL copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        } else {
+            alert('Clipboard API not supported in this browser.');
+        }
+    });
+</script>
+</body>
+</html>
